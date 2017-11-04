@@ -5,18 +5,23 @@ import {
 
 export const loadData = () => {
   return (dispatch) => {
-  	fetch('https://hacker-news.firebaseio.com/v0/item/8863.json?print=pretty')
-  	.then(data => data.json())
-  	.then(data => {
-  		const arr = [];
-  		arr.push(data);
-      arr.push(data);
-      arr.push(data);
-      arr.push(data);
-      arr.push(data);
-      arr.push(data);
-      arr.push(data);
-  		dispatch({ type: LOADED_DATA, payload: arr });
-  	});
+  	
+    fetch('https://hacker-news.firebaseio.com/v0/topstories.json?print=pretty')
+    .then(data => data.json())
+    .then(data => {
+      for (var i = 0; i < 10; i++) {
+        getElement(data[i], dispatch);
+      }
+    });
+
   };
 };
+
+
+function getElement(id, dispatch) {
+  fetch('https://hacker-news.firebaseio.com/v0/item/'+id+'.json?print=pretty')
+    .then(data => data.json())
+    .then(data => {
+      dispatch({ type: LOADED_DATA, payload: data });
+    });
+}

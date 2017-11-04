@@ -25,7 +25,7 @@ class Main extends Component {
 
   renderText = (data) => {
     return (
-      <View style={styles.card}>
+      <View key={data.id} style={styles.card}>
       <Image          
           source={{uri: 'https://cdn0.iconfinder.com/data/icons/mobile-development-icons/256/Web_page.png'}}
           style={styles.image}
@@ -46,7 +46,7 @@ class Main extends Component {
         </Text>
         
         <Text style={{color: 'blue'}} onPress={() => this.seeChildren()}>
-            See comments ({data.kids.length})
+            See comments ({data.descendants})
         </Text>
       
         
