@@ -9,16 +9,37 @@ import {
   View,
   Linking
 } from 'react-native';
-import { loadData } from '../action';
+import { loadChildren } from '../action';
 import { connect } from 'react-redux';
+import Comment from './Comment';
 
 class Children extends Component {
 
+  componentWillMount() {
+    this.props.loadChildren(this.props.childrenId);
+  }
 
-  render() {    
+    getDataOffset(dataTemp, selfId) {
+    let data = [];
+      dataTemp.map(e => {
+        if (e.parent === selfId) {
+          e.offset = 0;
+        } else {
+          e.offset = 10;
+        }
+        data.push(e);
+      });
+      return data;
+  }
+
+    render() {
+      let dataTemp = this.props.children;
+      console.log(dataTemp);
+
+      const children = this.getDataOffset(dataTemp, this.props.childrenId);   
     return (
       <ScrollView style={styles.contentContainer}>
-        <Text>Hijos</Text>
+        {children.map((t) => <Comment key={t.id} data={t} />)}
       </ScrollView>
     )
   }
@@ -31,8 +52,8 @@ const styles = StyleSheet.create({
 });
 
 const mapStateToProps = state => {  
-  const {data, loading}  = state.main;
-  return {data, loading};
+  const {children}  = state.main;
+  return {children};
 };
 
-export default connect(mapStateToProps, { loadData })(Children);
+export default connect(mapStateToProps, { loadChildren })(Children);
