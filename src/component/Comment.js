@@ -14,7 +14,7 @@ class Comment extends Component {
 	    const {data} = this.props;
 	    
 	    return (
-	      <View key={data.id} style={[styles.card, {marginLeft: data.offset}]}>      	
+	      <View key={data.id} style={styles.card}>      	
 	      	<Text style={styles.by}>
 	            By: {data.by}
 	        </Text>
@@ -30,6 +30,7 @@ class Comment extends Component {
 const styles = StyleSheet.create({
   card: {
     top: 10,
+    marginLeft: 10,
     marginRight: 10,
     marginBottom: 10,
     backgroundColor: '#FFF',

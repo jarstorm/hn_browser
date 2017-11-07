@@ -19,28 +19,18 @@ class Children extends Component {
     this.props.loadChildren(this.props.childrenId);
   }
 
-    getDataOffset(dataTemp, selfId) {
-    let data = [];
-      dataTemp.map(e => {
-        if (e.parent === selfId) {
-          e.offset = 0;
-        } else {
-          e.offset = 10;
-        }
-        data.push(e);
-      });
-      return data;
+  orderByDateAndParent(data) {
+    return data.sort(function(a, b) {
+      return b.time - a.time;
+    });
   }
 
-    render() {
-      let dataTemp = this.props.children;
-      console.log(dataTemp);
-
-      const children = this.getDataOffset(dataTemp, this.props.childrenId);   
+  render() {
+    const children = this.orderByDateAndParent(this.props.children);
     return (
-      <ScrollView style={styles.contentContainer}>
-        {children.map((t) => <Comment key={t.id} data={t} />)}
-      </ScrollView>
+    <ScrollView style={styles.contentContainer}>
+      {children.map((t) => <Comment key={t.id} data={t} />)}
+    </ScrollView>
     )
   }
 }
