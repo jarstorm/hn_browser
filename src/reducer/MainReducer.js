@@ -2,12 +2,14 @@ import {
   LOADED_DATA,
   LOADED_CHILDREN,
   RELOAD_DATA,
-  RELOAD_CHILDREN
+  RELOAD_CHILDREN,
+  LOAD_USER
 } from '../action/types';
 
 const INITIAL_STATE = {
   data: [],
   children: [],
+  user: {submitted: []},
   loading: true
 };
 
@@ -22,6 +24,8 @@ export default (state = INITIAL_STATE, action) => {
       return { ...state, data: [], loading: false };
     case RELOAD_CHILDREN:
       return { ...state, children: [], loading: false };
+    case LOAD_USER:
+      return { ...state, user: action.payload, loading: false };        
     default:
       return state;
   }

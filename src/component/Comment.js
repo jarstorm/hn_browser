@@ -10,14 +10,18 @@ import Timestamp from 'react-timestamp';
 
 class Comment extends Component {
 
-  	render() {
+  seeUser(id) {
+    Actions.user({userId: id});
+  }
+
+	render() {
 	    const {data} = this.props;
 	    
 	    return (
 	      <View key={data.id} style={styles.card}>      	
-	      	<Text style={styles.by}>
-	            By: {data.by}
-	        </Text>
+	      	<Text style={{color: 'blue'}} onPress={() => this.seeUser(data.by)}>
+	        	By ({data.by})
+	    	</Text> 
 	        <Text>
 	        	{data.text}
 	        </Text>   
